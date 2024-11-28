@@ -50,6 +50,7 @@ fi
 
 echo -e "${GREEN}Neurochain 노드 설치 및 구동을 시작합니다.${NC}"
 echo -e "${GREEN}정상적으로 구동되기 시작하면 컨트롤+AD로 스크린을 빠져나오신 후 창을 종료해주세요.${NC}"
+echo -e "${YELLOW}대시보드사이트는 다음과 같습니다:https://app.neurochain.ai/my-assets${NC}"
 echo -e "${BLUE}스크립트작성자: https://t.me/kjkresearch${NC}"
 read -p "계속하시려면 엔터를 눌러주세요: "
 
