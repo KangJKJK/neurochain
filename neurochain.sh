@@ -54,9 +54,12 @@ echo -e "${BLUE}마이닝 프로그램을 다운로드하고 설치합니다...$
 sudo apt-get update && sudo apt-get install unzip -y
 sudo apt-get install git build-essential
 
+# 디렉토리 생성 및 이동
+mkdir neurochain
+cd neurochain
+
 wget https://worker-files.neurochain.ai/linux-1.3.0.zip
 sudo unzip linux-1.3.0.zip
-cd linux-1.3.0
 export SIGNATURE=$signature
 ./server
 
