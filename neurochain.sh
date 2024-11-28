@@ -48,7 +48,10 @@ else
     fi
 fi
 
-echo -e "${BLUE}마이닝 프로그램을 다운로드하고 설치합니다...${NC}"
+echo -e "${GREEN}Neurochain 노드 설치 및 구동을 시작합니다.${NC}"
+echo -e "${GREEN}정상적으로 구동되기 시작하면 컨트롤+AD로 스크린을 빠져나오신 후 창을 종료해주세요.${NC}"
+echo -e "${BLUE}스크립트작성자: https://t.me/kjkresearch${NC}"
+read -p "계속하시려면 엔터를 눌러주세요: "
 
 # 필수 패키지 설치
 sudo apt-get update && sudo apt-get install unzip -y
@@ -70,7 +73,3 @@ sudo chmod -R 755 _internal
 
 # 노드 실행
 ./worker
-
-echo -e "${GREEN}Neurochain 노드 설치가 완료되었습니다.${NC}"
-echo -e "${GREEN}대시보드에서 확인하세요: https://app.neurochain.ai/gpu-mining${NC}"
-echo -e "${BLUE}스크립트작성자: https://t.me/kjkresearch${NC}"
