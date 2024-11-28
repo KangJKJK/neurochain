@@ -42,7 +42,7 @@ else
         sudo apt install nvidia-utils-550-server
         sudo apt install nvidia-driver-550-server
         sudo apt-get install cuda-drivers-550
-        sudo apt-get install cuda-12-2
+        sudo apt-get install cuda-12-3
     else
         echo "잘못된 선택입니다."
         exit 1
