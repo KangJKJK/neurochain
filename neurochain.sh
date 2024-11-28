@@ -61,7 +61,15 @@ cd neurochain
 wget https://worker-files.neurochain.ai/linux-1.3.0.zip
 sudo unzip linux-1.3.0.zip
 export SIGNATURE=$signature
-./server
+
+# 모든 파일과 디렉토리의 소유권을 현재 사용자로 변경
+sudo chown -R $USER:$USER .
+
+# 필요한 디렉토리에 쓰기 권한 추가
+sudo chmod -R 755 _internal
+
+# 노드 실행
+./worker
 
 echo -e "${GREEN}Neurochain 노드 설치가 완료되었습니다.${NC}"
 echo -e "${GREEN}대시보드에서 확인하세요: https://app.neurochain.ai/gpu-mining${NC}"
