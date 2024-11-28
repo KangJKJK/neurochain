@@ -55,7 +55,7 @@ sudo apt-get update && sudo apt-get install unzip -y
 sudo apt-get install git build-essential
 
 wget https://worker-files.neurochain.ai/linux-1.3.0.zip
-unzip linux-1.3.0.zip
+sudo unzip linux-1.3.0.zip
 cd linux-1.3.0
 export SIGNATURE=$signature
 ./server
