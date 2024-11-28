@@ -57,9 +57,9 @@ sudo apt-get install git build-essential
 # 디렉토리 생성 및 이동
 mkdir neurochain
 cd neurochain
-
 wget https://worker-files.neurochain.ai/linux-1.3.0.zip
 sudo unzip linux-1.3.0.zip
+sleep 5
 export SIGNATURE=$signature
 
 # 모든 파일과 디렉토리의 소유권을 현재 사용자로 변경
