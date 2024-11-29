@@ -16,37 +16,49 @@ echo
 
 read -p "$(echo -e ${YELLOW}"Signature 코드를 입력해주세요: "${NC})" signature
 
-# GPU 드라이버 설치 여부 확인
-read -p "$(echo -e ${YELLOW}"GPU 드라이버가 이미 설치되어 있나요? (y/n): "${NC})" driver_installed
-
-if [ "$driver_installed" == "y" ] || [ "$driver_installed" == "Y" ]; then
-    echo -e "${GREEN}드라이버 설치 과정을 건너뛰고 진행합니다.${NC}"
-else
-    echo -e "${YELLOW}GPU 드라이버 설치를 진행합니다.${NC}"
-    read -p "$(echo -e ${YELLOW}"GPU 종류를 선택하세요 (1: 일반 그래픽카드, 2: 서버용 GPU): "${NC})" gpu_type
+# 선택에 따른 작업 수행
+if [ "$option" == "1" ]; then
+    echo -e "${YELLOW}NVIDIA 드라이버 설치 옵션을 선택하세요:${NC}"
+    echo -e "1: 일반 그래픽카드 (RTX, GTX 시리즈) 드라이버 설치"
+    echo -e "2: 서버용 GPU (T4, L4, A100 등) 드라이버 설치"
+    echo -e "3: 기존 드라이버 및 CUDA 완전 제거"
+    echo -e "4: 드라이버 설치 건너뛰기"
+    read -p "선택 (1, 2, 3, 4): " driver_option
     
-    # GPU 타입에 따른 드라이버 설치
-    sudo apt update
-    if [ "$gpu_type" == "1" ]; then
-        # 일반 그래픽카드용 드라이버 설치
-        sudo apt install nvidia-utils-550
-        sudo apt install nvidia-driver-550
-        sudo apt-get install cuda-drivers-550 
-        sudo apt-get install cuda-12-3
-    elif [ "$gpu_type" == "2" ]; then
-        # 서버용 GPU 드라이버 설치
-        distribution=$(. /etc/os-release;echo $ID$VERSION_ID | sed -e 's/\.//g')
-        wget https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64/cuda-keyring_1.0-1_all.deb
-        sudo dpkg -i cuda-keyring_1.0-1_all.deb
-        sudo apt-get update
-        sudo apt install nvidia-utils-550-server
-        sudo apt install nvidia-driver-550-server
-        sudo apt-get install cuda-12-3
-    else
-        echo "잘못된 선택입니다."
-        exit 1
-    fi
-fi
+    case $driver_option in
+        1)
+            sudo apt update
+            sudo apt install -y nvidia-utils-550
+            sudo apt install -y nvidia-driver-550
+            sudo apt-get install -y cuda-drivers-550 
+            sudo apt-get install -y cuda-12-3
+            ;;
+        2)
+            distribution=$(. /etc/os-release;echo $ID$VERSION_ID | sed -e 's/\.//g')
+            wget https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64/cuda-keyring_1.0-1_all.deb
+            sudo dpkg -i cuda-keyring_1.0-1_all.deb
+            sudo apt-get update
+            sudo apt install -y nvidia-utils-550-server
+            sudo apt install -y nvidia-driver-550-server
+            sudo apt-get install -y cuda-12-3
+            ;;
+        3)
+            echo "기존 드라이버 및 CUDA를 제거합니다..."
+            sudo apt-get purge -y nvidia*
+            sudo apt-get purge -y cuda*
+            sudo apt-get purge -y libnvidia*
+            sudo apt autoremove -y
+            sudo rm -rf /usr/local/cuda*
+            echo "드라이버 및 CUDA가 완전히 제거되었습니다."
+            ;;
+        4)
+            echo "드라이버 설치를 건너뜁니다."
+            ;;
+        *)
+            echo "잘못된 선택입니다."
+            exit 1
+            ;;
+    esac
 
 echo -e "${GREEN}Neurochain 노드 설치 및 구동을 시작합니다.${NC}"
 echo -e "${GREEN}정상적으로 구동되기 시작하면 컨트롤+AD로 스크린을 빠져나오신 후 창을 종료해주세요.${NC}"
