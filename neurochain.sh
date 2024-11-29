@@ -63,6 +63,16 @@ mkdir neurochain
 cd neurochain
 wget https://worker-files.neurochain.ai/linux-1.3.0.zip
 sudo unzip linux-1.3.0.zip
+
+# 8GB 스왑 파일 생성
+sudo fallocate -l 8G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+# 영구적으로 스왑 설정 (재부팅 후에도 유지)
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
 sleep 5
 export SIGNATURE=$signature
 
