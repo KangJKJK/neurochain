@@ -77,6 +77,27 @@ if [ "$option" == "1" ]; then
         fi
     done
 
+            # CUDA 툴킷 설치 여부 확인
+        if command -v nvcc &> /dev/null; then
+            echo -e "${GREEN}CUDA 툴킷이 이미 설치되어 있습니다.${NC}"
+            nvcc --version
+            read -p "CUDA 툴킷을 다시 설치하시겠습니까? (y/n): " reinstall_cuda
+            if [ "$reinstall_cuda" == "y" ]; then
+                # dpkg 문제 해결을 위한 자동 실행
+                sudo dpkg --configure -a
+                sudo apt-get update
+                sudo apt-get install -f -y
+                sudo apt-get install -y nvidia-cuda-toolkit
+            fi
+        else
+            echo -e "${YELLOW}CUDA 툴킷을 설치합니다...${NC}"
+            # dpkg 문제 해결을 위한 자동 실행
+            sudo dpkg --configure -a
+            sudo apt-get update
+            sudo apt-get install -f -y
+            sudo apt-get install -y nvidia-cuda-toolkit
+        fi
+
 echo -e "${GREEN}Neurochain 노드 설치 및 구동을 시작합니다.${NC}"
 echo -e "${GREEN}정상적으로 구동되기 시작하면 컨트롤+AD로 스크린을 빠져나오신 후 창을 종료해주세요.${NC}"
 echo -e "${YELLOW}대시보드사이트는 다음과 같습니다:https://app.neurochain.ai/my-assets${NC}"
