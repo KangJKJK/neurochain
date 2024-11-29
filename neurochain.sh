@@ -81,6 +81,6 @@ sudo chown -R $USER:$USER .
 
 # 필요한 디렉토리에 쓰기 권한 추가
 sudo chmod -R 755 _internal
-
+sudo chmod -R 755 .
 # 노드 실행
 ./worker
