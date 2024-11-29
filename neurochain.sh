@@ -18,15 +18,14 @@ read -p "$(echo -e ${YELLOW}"Signature 코드를 입력해주세요: "${NC})" si
 
 # 선택에 따른 작업 수행
 if [ "$option" == "1" ]; then
-    echo -e "${YELLOW}NVIDIA 드라이버 설치 옵션을 선택하세요(최초 진행시 3번먼저 진행):${NC}"
+    echo -e "${YELLOW}NVIDIA 드라이버 설치 옵션을 선택하세요:${NC}"
     echo -e "1: 일반 그래픽카드 (RTX, GTX 시리즈) 드라이버 설치"
     echo -e "2: 서버용 GPU (T4, L4, A100 등) 드라이버 설치"
     echo -e "3: 기존 드라이버 및 CUDA 완전 제거"
     echo -e "4: 드라이버 설치 건너뛰기"
-    echo -e "5: 다음 단계로 이동"
     
     while true; do
-        read -p "선택 (1, 2, 3, 4, 5): " driver_option
+        read -p "선택 (1, 2, 3, 4): " driver_option
         
         case $driver_option in
             1)
@@ -56,9 +55,6 @@ if [ "$option" == "1" ]; then
                 ;;
             4)
                 echo "드라이버 설치를 건너뜁니다."
-                ;;
-            5)
-                echo "다음 단계로 이동합니다."
                 break
                 ;;
             *)
@@ -67,13 +63,12 @@ if [ "$option" == "1" ]; then
                 ;;
         esac
         
-        if [ "$driver_option" != "5" ]; then
+        if [ "$driver_option" != "4" ]; then
             echo -e "\n${YELLOW}NVIDIA 드라이버 설치 옵션을 선택하세요:${NC}"
             echo -e "1: 일반 그래픽카드 (RTX, GTX 시리즈) 드라이버 설치"
             echo -e "2: 서버용 GPU (T4, L4, A100 등) 드라이버 설치"
             echo -e "3: 기존 드라이버 및 CUDA 완전 제거"
             echo -e "4: 드라이버 설치 건너뛰기"
-            echo -e "5: 다음 단계로 이동"
         fi
     done
 
